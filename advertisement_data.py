@@ -36,7 +36,7 @@ def connect_to_database(credentials_file: str) -> psycopg2.connect:
     # Connect to the PostgreSQL database server
     with open(credentials_file) as f:
         credentials = json.load(f)
-    conn = None
+
     try:
         conn = psycopg2.connect(**credentials)
     except (Exception, psycopg2.DatabaseError) as error:
