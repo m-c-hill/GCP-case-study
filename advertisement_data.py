@@ -186,15 +186,15 @@ def get_total_ebfr_per_hour(conn: psycopg2.connect) -> pd.DataFrame:
     return pd.read_sql(query, conn)
 
 
-def get_total_records_per_buyer(conn: psycopg2.connect) -> pd.DataFrame:
+# def get_total_records_per_buyer(conn: psycopg2.connect) -> pd.DataFrame:
     # Total records per buyer
-    query = '''SELECT buyer, COUNT(*) AS count FROM advertisementdata GROUP BY buyer ORDER BY buyer'''
-    return pd.read_sql(query, conn)
+#    query = '''SELECT buyer, COUNT(*) AS count FROM advertisementdata GROUP BY buyer ORDER BY buyer'''
+#    return pd.read_sql(query, conn)
 
 
 def get_total_ebfr_per_buyer(conn: psycopg2.connect) -> pd.DataFrame:
-    # Total estimated backfill revenue per buyer
-    query = '''SELECT buyer, sum(estimatedbackfillrevenue) AS total_estimated_backfill_revenue 
+    # Total estimated backfill revenue per buyer with total number of records
+    query = '''SELECT buyer, sum(estimatedbackfillrevenue) AS total_estimated_backfill_revenue, COUNT(*) AS count 
                 FROM advertisementdata 
                 GROUP BY buyer 
                 ORDER BY buyer'''
@@ -221,14 +221,14 @@ def analysis(conn: psycopg2.connect) -> None:
     get_records_per_hour(conn).to_csv(f'reports/records_per_hour_{timestamp}.csv')
     get_total_ebfr_per_day(conn).to_csv(f'reports/total_ebfr_per_day_{timestamp}.csv')
     get_total_ebfr_per_hour(conn).to_csv(f'reports/total_ebfr_per_hour_{timestamp}.csv')
-    get_total_records_per_buyer(conn).to_csv(f'reports/total_records_per_buyer_{timestamp}.csv')
+    #get_total_records_per_buyer(conn).to_csv(f'reports/total_records_per_buyer_{timestamp}.csv')
     get_total_ebfr_per_buyer(conn).to_csv(f'reports/total_ebfr_per_buyer_{timestamp}.csv')
     get_unique_device_categories_per_buyer(conn).to_csv(f'reports/unique_device_categories_per_buyer_{timestamp}.csv')
 
 
 def main():
     # Establish connections to the database and storage bucket
-    conn = connect_to_database("conn_credentials.json")
+    conn = connect_to_database("conn_credentials2.json")
     bucket = connect_to_bucket("gcp-casestudy-32e8e2a33790.json")
 
     if debug_mode:
