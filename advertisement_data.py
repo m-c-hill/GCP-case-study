@@ -217,13 +217,13 @@ def analysis(conn: psycopg2.connect) -> None:
     """
     timestamp = datetime.now().strftime('%Y%m%d-%H%M%S')
 
-    get_records_per_day(conn).to_csv(f'reports/records_per_day_{timestamp}')
-    get_records_per_hour(conn).to_csv(f'reports/records_per_hour_{timestamp}')
-    get_total_ebfr_per_day(conn).to_csv(f'reports/total_ebfr_per_day_{timestamp}')
-    get_total_ebfr_per_hour(conn).to_csv(f'reports/total_ebfr_per_hour_{timestamp}')
-    get_total_records_per_buyer(conn).to_csv(f'reports/total_records_per_buyer_{timestamp}')
-    get_total_ebfr_per_buyer(conn).to_csv(f'reports/total_ebfr_per_buyer_{timestamp}')
-    get_unique_device_categories_per_buyer(conn).to_csv(f'reports/unique_device_categories_per_buyer_{timestamp}')
+    get_records_per_day(conn).to_csv(f'reports/records_per_day_{timestamp}.csv')
+    get_records_per_hour(conn).to_csv(f'reports/records_per_hour_{timestamp}.csv')
+    get_total_ebfr_per_day(conn).to_csv(f'reports/total_ebfr_per_day_{timestamp}.csv')
+    get_total_ebfr_per_hour(conn).to_csv(f'reports/total_ebfr_per_hour_{timestamp}.csv')
+    get_total_records_per_buyer(conn).to_csv(f'reports/total_records_per_buyer_{timestamp}.csv')
+    get_total_ebfr_per_buyer(conn).to_csv(f'reports/total_ebfr_per_buyer_{timestamp}.csv')
+    get_unique_device_categories_per_buyer(conn).to_csv(f'reports/unique_device_categories_per_buyer_{timestamp}.csv')
 
 
 def main():
