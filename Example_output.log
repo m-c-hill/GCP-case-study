@@ -1,0 +1,27 @@
+2021-03-17 21:09:34,560 : INFO : Checking for new files
+2021-03-17 21:09:34,633 : INFO : Loading file imps0.csv.gz
+2021-03-17 21:10:31,125 : INFO : Inserting data into table: advertisementdata
+2021-03-17 21:18:06,189 : INFO : Successfully inserted imps0.csv.gz to database
+2021-03-17 21:18:06,193 : INFO : Loading file imps1.csv.gz
+2021-03-17 21:19:01,308 : INFO : Inserting data into table: advertisementdata
+2021-03-17 21:26:23,078 : INFO : Successfully inserted imps1.csv.gz to database
+2021-03-17 21:26:23,080 : INFO : Loading file imps2.csv.gz
+2021-03-17 21:28:13,854 : INFO : Inserting data into table: advertisementdata
+2021-03-17 21:36:24,852 : INFO : Successfully inserted imps2.csv.gz to database
+2021-03-17 21:36:24,859 : INFO : Loading file imps3.csv.gz
+2021-03-17 21:37:33,589 : INFO : Inserting data into table: advertisementdata
+2021-03-17 21:44:59,371 : INFO : Successfully inserted imps3.csv.gz to database
+2021-03-17 21:44:59,377 : INFO : Loading file imps4.csv.gz
+2021-03-17 21:45:37,022 : INFO : Inserting data into table: advertisementdata
+2021-03-17 21:54:09,782 : INFO : Successfully inserted imps4.csv.gz to database
+2021-03-17 21:54:09,789 : INFO : Loading file imps5.csv.gz
+2021-03-17 21:54:55,990 : INFO : Inserting data into table: advertisementdata
+2021-03-17 22:02:39,897 : INFO : Successfully inserted imps5.csv.gz to database
+2021-03-17 22:02:39,898 : INFO : Loading file imps6.csv.gz
+2021-03-17 22:02:41,203 : INFO : Inserting data into table: advertisementdata
+2021-03-17 22:02:43,332 : INFO : Successfully inserted imps6.csv.gz to database
+2021-03-17 22:02:43,333 : INFO : Removing duplicates from table: advertisementdata
+2021-03-17 22:04:02,074 : INFO : Duplicates removed: 5999
+2021-03-17 22:04:02,076 : INFO : Analysing table: advertisementdata. Results saved to C:\Users\Matt\dev\GCPCaseStudy/reports
+2021-03-17 22:04:20,629 : INFO : Analysis complete
+2021-03-17 22:04:30,631 : INFO : Checking for new files
