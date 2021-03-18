@@ -105,9 +105,19 @@ def set_index(conn: psycopg2.connect, df: pd.DataFrame) -> None:
 
 
 def insert_data(conn: psycopg2.connect, df: pd.DataFrame) -> None:
+    '''
+    Bulk insert dataframe into advertisementdata table.
+
+    This function was inspired by Naysan Saran's article "Pandas to PostgreSQL using Psycopg2: Bulk Insert Performance
+    Benchmark", in which the author chose a variety of bulk insert methods and compared their execution time. Saving the
+    dataframe to a StringIO object and then copying this to the database proved to be the most efficient when dealing
+    with millions of records.
+
+    Source: https://naysan.ca/2020/05/09/pandas-to-postgresql-using-psycopg2-bulk-insert-performance-benchmark/
+    '''
+
     set_index(conn, df)
 
-    # Bulk insert dataframe into advertisementdata table
     buffer = StringIO()
     df.to_csv(buffer, index_label='id', header=False)
     buffer.seek(0)
