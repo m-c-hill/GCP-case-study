@@ -14,7 +14,7 @@ from time import sleep
 
 
 # For testing purposes, set pandas output to display all rows / columns
-debug_mode = True
+debug_mode = False
 pd.set_option('display.max_rows', 100)
 pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
@@ -23,9 +23,9 @@ pd.set_option('display.width', 1000)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s : %(levelname)s : %(message)s')
 
 
-def connect_to_bucket(service_account: str) -> storage.bucket.Bucket:
+def connect_to_bucket(service_account_file: str) -> storage.bucket.Bucket:
     # Connect to and return the case study Google Cloud Storage bucket (fst-python-case-study-test)
-    PATH = os.path.join(os.getcwd(), service_account)
+    PATH = os.path.join(os.getcwd(), service_account_file)
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = PATH
     storage_client = storage.Client(PATH)
 
@@ -166,13 +166,18 @@ def get_records_per_day(conn: psycopg2.connect) -> pd.DataFrame:
 
 def get_records_per_hour(conn: psycopg2.connect) -> pd.DataFrame:
     # Total number of records per hour
-    query = '''SELECT DATE_TRUNC('hour', time) AS datetime, COUNT(*) AS count FROM advertisementdata GROUP BY datetime ORDER BY datetime'''
+    query = '''SELECT DATE_TRUNC('hour', time) AS datetime, COUNT(*) AS count 
+                FROM advertisementdata 
+                GROUP BY datetime 
+                ORDER BY datetime'''
     return pd.read_sql(query, conn)
 
 
 def get_total_ebfr_per_day(conn: psycopg2.connect) -> pd.DataFrame:
     # Total estimated backfill revenue per day
-    query = '''SELECT time::date AS date, sum(estimatedbackfillrevenue) AS total_estimated_backfill_revenue FROM advertisementdata GROUP BY date'''
+    query = '''SELECT time::date AS date, sum(estimatedbackfillrevenue) AS total_estimated_backfill_revenue 
+                FROM advertisementdata 
+                GROUP BY date'''
     return pd.read_sql(query, conn)
 
 
@@ -184,12 +189,6 @@ def get_total_ebfr_per_hour(conn: psycopg2.connect) -> pd.DataFrame:
                 GROUP BY datetime 
                 ORDER BY datetime'''
     return pd.read_sql(query, conn)
-
-
-# def get_total_records_per_buyer(conn: psycopg2.connect) -> pd.DataFrame:
-    # Total records per buyer
-#    query = '''SELECT buyer, COUNT(*) AS count FROM advertisementdata GROUP BY buyer ORDER BY buyer'''
-#    return pd.read_sql(query, conn)
 
 
 def get_total_ebfr_per_buyer(conn: psycopg2.connect) -> pd.DataFrame:
@@ -221,14 +220,13 @@ def analysis(conn: psycopg2.connect) -> None:
     get_records_per_hour(conn).to_csv(f'reports/records_per_hour_{timestamp}.csv')
     get_total_ebfr_per_day(conn).to_csv(f'reports/total_ebfr_per_day_{timestamp}.csv')
     get_total_ebfr_per_hour(conn).to_csv(f'reports/total_ebfr_per_hour_{timestamp}.csv')
-    #get_total_records_per_buyer(conn).to_csv(f'reports/total_records_per_buyer_{timestamp}.csv')
     get_total_ebfr_per_buyer(conn).to_csv(f'reports/total_ebfr_per_buyer_{timestamp}.csv')
     get_unique_device_categories_per_buyer(conn).to_csv(f'reports/unique_device_categories_per_buyer_{timestamp}.csv')
 
 
 def main():
     # Establish connections to the database and storage bucket
-    conn = connect_to_database("conn_credentials2.json")
+    conn = connect_to_database("conn_credentials.json")
     bucket = connect_to_bucket("gcp-casestudy-32e8e2a33790.json")
 
     if debug_mode:
